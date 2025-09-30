@@ -19,6 +19,10 @@ describe('Sign Up', () => {
   });
 
     it('successfully registers user with default UAH currency', () => {
+      cy.allure().feature('Registration');
+    cy.allure().story('Register with different currencies');
+    cy.allure().tag('smoke');
+    cy.allure().tag('currency');
         signUpPage.enterFullName(testName);
         signUpPage.enterEmail(testEmail);
         signUpPage.enterPassword(testPassword);
@@ -31,6 +35,10 @@ describe('Sign Up', () => {
     });
 
     it('successfully registers user with USD currency', () => {
+            cy.allure().feature('Registration');
+    cy.allure().story('Register with different currencies');
+    cy.allure().tag('smoke');
+    cy.allure().tag('currency');
         signUpPage.enterFullName(testName);
         signUpPage.enterEmail(testEmail);
         signUpPage.enterPassword(testPassword);
@@ -45,6 +53,10 @@ describe('Sign Up', () => {
     });
 
     it('successfully registers user with EUR currency', () => {
+            cy.allure().feature('Registration');
+    cy.allure().story('Register with different currencies');
+    cy.allure().tag('smoke');
+    cy.allure().tag('currency');
         signUpPage.enterFullName(testName);
         signUpPage.enterEmail(testEmail);
         signUpPage.enterPassword(testPassword);
@@ -59,6 +71,10 @@ describe('Sign Up', () => {
     });
 
     it('successfully registers user with GBP currency', () => {
+            cy.allure().feature('Registration');
+    cy.allure().story('Register with different currencies');
+    cy.allure().tag('smoke');
+    cy.allure().tag('currency');
         signUpPage.enterFullName(testName);
         signUpPage.enterEmail(testEmail);
         signUpPage.enterPassword(testPassword);
@@ -73,6 +89,10 @@ describe('Sign Up', () => {
     });
 
     it('fails to register user with no name', () => {
+            cy.allure().feature('Registration');
+    cy.allure().story('Register with different currencies');
+    cy.allure().tag('smoke');
+    cy.allure().tag('currency');
         signUpPage.enterEmail(testEmail);
         signUpPage.enterPassword(testPassword);
         signUpPage.enterConfirmPassword(testPassword);
@@ -83,6 +103,10 @@ describe('Sign Up', () => {
     });
 
     it('fails to register user with no email', () => {
+            cy.allure().feature('Registration');
+    cy.allure().story('Register with different currencies');
+    cy.allure().tag('smoke');
+    cy.allure().tag('currency');
         signUpPage.enterFullName(testName);
         signUpPage.enterPassword(testPassword);
         signUpPage.enterConfirmPassword(testPassword);
@@ -93,6 +117,10 @@ describe('Sign Up', () => {
     });
 
     it('fails to register user with invalid email', () => {
+            cy.allure().feature('Registration');
+    cy.allure().story('Register with different currencies');
+    cy.allure().tag('smoke');
+    cy.allure().tag('currency');
         signUpPage.enterFullName(testName);
         signUpPage.enterPassword(testPassword);
         signUpPage.enterConfirmPassword(testPassword);
@@ -103,6 +131,10 @@ describe('Sign Up', () => {
     });
 
     it('fails to register user with no password', () => {
+            cy.allure().feature('Registration');
+    cy.allure().story('Register with different currencies');
+    cy.allure().tag('smoke');
+    cy.allure().tag('currency');
         signUpPage.enterFullName(testName);
         signUpPage.enterEmail(testEmail);
         signUpPage.enterConfirmPassword(testPassword);
@@ -113,6 +145,10 @@ describe('Sign Up', () => {
     });
 
     it('fails to register user with no confirm password', () => {
+            cy.allure().feature('Registration');
+    cy.allure().story('Register with different currencies');
+    cy.allure().tag('smoke');
+    cy.allure().tag('currency');
         signUpPage.enterFullName(testName);
         signUpPage.enterEmail(testEmail);
         signUpPage.enterPassword(testPassword);
@@ -123,6 +159,10 @@ describe('Sign Up', () => {
     });
 
     it('fails to register user when password and confirm password do not match', () => {
+            cy.allure().feature('Registration');
+    cy.allure().story('Register with different currencies');
+    cy.allure().tag('smoke');
+    cy.allure().tag('currency');
         signUpPage.enterFullName(testName);
         signUpPage.enterEmail(testEmail);
         signUpPage.enterPassword(testPassword);
@@ -134,6 +174,10 @@ describe('Sign Up', () => {
     });
 
     it('redirects user to the login page', () => {
+            cy.allure().feature('Registration');
+    cy.allure().story('Register with different currencies');
+    cy.allure().tag('smoke');
+    cy.allure().tag('currency');
         signUpPage.clickLogIn();
         cy.get('data-testid="login-title"')
           .should('be.visible');
