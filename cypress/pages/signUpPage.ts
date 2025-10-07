@@ -1,5 +1,7 @@
+import Utils from '../support/utils'
+
 class SignUpPage {
-  // 1. Locators (private, so tests don’t use them directly)
+  // Locators (private, so tests don’t use them directly)
   elements = {
     fullName: () => cy.get('[data-testid="register-name-input"]'),
     email: () => cy.get('[data-testid="register-email-input"]'),
@@ -12,43 +14,38 @@ class SignUpPage {
     error: (field: string) => cy.get(`[data-testid="${field}-error"]`) // one locator for fields with similar error structure
   };
 
-  // 2. Actions (public methods, used in tests)
+  // Actions (public methods, used in tests)
   enterFullName(name: string) {
-    this.elements.fullName().type(name);
+    Utils.typeValue(this.elements.fullName(), name);
   }
 
-  enterEmail(email: string) {
-    this.elements.email().type(email);
+  enterEmail(email:string) {
+    Utils.typeValue(this.elements.email(), email);
   }
 
   enterPassword(password: string) {
-    this.elements.password().type(password);
+    Utils.typeValue(this.elements.password(), password);
   }
 
   enterConfirmPassword(password: string) {
-    this.elements.confirmPassword().type(password);
+    Utils.typeValue(this.elements.confirmPassword(), password);
   }
 
-
-  // openCurrencyDropdown() {
-  //   this.elements.currencyDropdown().click(); // open the dropdown
-  // }
-
-selectCurrency(currency: string): void {
-  this.elements.currencyDropdown().select(currency);
-}
+  selectCurrency(currency: string) {
+    Utils.selectValue(this.elements.currencyDropdown(), currency);
+  }
 
   clickSignUp() {
-    this.elements.signUpButton().click();
+    Utils.clickElement(this.elements.signUpButton(), 'Sign Up button');
   }
 
   clickLogIn() {
-    this.elements.logInButton().click();
+    Utils.clickElement(this.elements.logInButton(), 'Log In button');
   }
 
-getErrorForField(field: string) {
-  return cy.get(`[data-testid="${field}-error"]`);
-}
+  getErrorForField(field: string) {
+    return this.elements.error(field);
+  }
 }
 
 export default new SignUpPage();

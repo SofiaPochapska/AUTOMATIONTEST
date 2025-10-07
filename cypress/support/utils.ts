@@ -1,11 +1,20 @@
 class Utils {
-  typeValue(element: any, value: string) {
-    try {
-      element.clear().type(value);
-      cy.log(`Введено значення "${value}"`);
-    } catch (error) {
-      cy.log(`Помилка при введенні значення "${value}"`);
-      throw error;
+  typeValue(element: Cypress.Chainable<JQuery<HTMLElement>>, value: string) {
+    element.clear().type(value);
+    cy.log(`Typed value: "${value}"`);
+  }
+
+  clickElement(element: Cypress.Chainable<JQuery<HTMLElement>>, description?: string) {
+    element.click();
+    if (description) {
+      cy.log(`Clicked: ${description}`);
     }
   }
+
+  selectValue(element: Cypress.Chainable<JQuery<HTMLElement>>, value: string) {
+    element.select(value);
+    cy.log(`Selected value: "${value}"`);
+  }
 }
+
+export default new Utils();
