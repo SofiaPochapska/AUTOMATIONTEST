@@ -6,6 +6,7 @@ let testName: string;
 let firstName: string;
 let lastName: string;
 let testEmail: string;
+let invalidMail: string;
 let testPassword: string;
 let extraPassword: string;
 
@@ -13,6 +14,7 @@ let extraPassword: string;
   testName = faker.person.fullName();
   [firstName, lastName] = testName.split(' ');
   testEmail = faker.internet.email({ firstName, lastName });
+  invalidMail = faker.word.noun() + '@';
   testPassword = faker.internet.password();
   extraPassword = faker.internet.password();
 
@@ -102,6 +104,8 @@ let extraPassword: string;
 
     it('fails to register user with invalid email', () => {
         signUpPage.enterFullName(testName);
+        signUpPage.enterEmail(invalidMail);
+        signUpPage.getErrorForField('email').should('contain', "Невірний формат email");
         signUpPage.enterPassword(testPassword);
         signUpPage.enterConfirmPassword(testPassword);
         signUpPage.clickSignUp();
@@ -143,7 +147,7 @@ let extraPassword: string;
 
     it('redirects user to the login page', () => {
         signUpPage.clickLogIn();
-        cy.get('data-testid="login-title"')
+        cy.get('[data-testid="login-title"]')
           .should('be.visible');
     });
 })
