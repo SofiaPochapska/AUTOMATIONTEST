@@ -1,11 +1,29 @@
 import { faker } from '@faker-js/faker';
 
+export interface PostAttributes {
+  title: string;
+  content: string;
+  status: string;
+}
+
 export class PostAPI {
-  baseUrl = 'https://dev.emeli.in.ua/wp-json/wp/v2';
-  auth = { username: 'admin', password: 'Engineer_123' };
+//   baseUrl = 'https://dev.emeli.in.ua/wp-json/wp/v2';
+//   auth = { username: 'admin', password: 'Engineer_123' };
+
+  private baseUrl: string;
+  private auth: { username: string; password: string };
+ 
+
+  constructor() {
+    this.baseUrl = Cypress.env('WP_BASE_URL') || 'https://dev.emeli.in.ua/wp-json/wp/v2';
+    this.auth = {
+      username: Cypress.env('username'),
+      password: Cypress.env('password'),
+    };
+  }
 
   // Generates random post data
-  generatePostAttributes(status: string = 'draft') {
+  generatePostAttributes(status: string = 'draft'): PostAttributes {
     return {
       title: faker.word.noun(),
       content: faker.lorem.sentence(),
@@ -14,7 +32,7 @@ export class PostAPI {
   }
 
   // Create a new post
-  createPost(postAttributes: any) {
+  createPost(postAttributes: PostAttributes) {
     return cy.request({
       method: 'POST',
       url: `${this.baseUrl}/posts`,
@@ -32,11 +50,12 @@ export class PostAPI {
       method: 'GET',
       url,
       auth: this.auth,
+      failOnStatusCode: false,
     });
   }
 
   // Edit a post
-  editPost(postId: number, newPostAttributes: any) {
+  editPost(postId: number, newPostAttributes: PostAttributes) {
     return cy.request({
       method: 'PUT',
       url: `${this.baseUrl}/posts/${postId}`,
@@ -49,7 +68,7 @@ export class PostAPI {
   deletePost(postId: number) {
     return cy.request({
       method: 'DELETE',
-      url: `${this.baseUrl}/posts/${postId}`,
+      url: `${this.baseUrl}/posts/${postId}/?force=true`,
       auth: this.auth,
     });
   }

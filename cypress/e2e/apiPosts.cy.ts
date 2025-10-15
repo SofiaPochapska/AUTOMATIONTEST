@@ -1,8 +1,11 @@
 import { postAPI } from '../pages/posts';
+import type { PostAttributes } from '../pages/posts';
 
 describe('API TESTS', () => {
   
- let postAttributes: any;
+//  let postAttributes: any;
+
+let postAttributes: PostAttributes;
 
   beforeEach(() => {
     postAttributes = postAPI.generatePostAttributes();
@@ -14,17 +17,22 @@ describe('API TESTS', () => {
       expect(response.body).to.have.property('id');
       expect(response.body.title.rendered).to.eq(postAttributes.title);
       expect(response.body.content.raw).to.eq(postAttributes.content);
+      const postId = response.body.id;
+      cy.log(`Створено пост з ID: ${postId}`);
     });
   });
 
     it('fetches a post', () => {
+      //Creates a new post
     postAPI.createPost(postAttributes).then((response) => {
     const postId = response.body.id;
+    cy.log(`Створено пост з ID: ${postId}`);
 
       postAPI.getPost(postId, true).then((response) => {
         expect(response.status).to.eq(200);
         expect(response.body.title.rendered).to.eq(postAttributes.title);
         expect(response.body.content.raw).to.include(postAttributes.content);
+        cy.log(`Знайдено пост з ID: ${postId}`);
       });
     });
   });
@@ -32,6 +40,8 @@ describe('API TESTS', () => {
   it('edits a post', () => {
     postAPI.createPost(postAttributes).then((response) => {
       const postId = response.body.id;
+      cy.log(`Створено пост з ID: ${postId}`);
+
       const newPostAttributes = postAPI.generatePostAttributes('pending');
 
       postAPI.editPost(postId, newPostAttributes).then((response) => {
@@ -39,6 +49,7 @@ describe('API TESTS', () => {
         expect(response.body.title.rendered).to.eq(newPostAttributes.title);
         expect(response.body.content.raw).to.eq(newPostAttributes.content);
         expect(response.body.status).to.eq('pending');
+        cy.log(`Оновлено пост з ID: ${postId}`);
       });
     });
   });
@@ -46,14 +57,16 @@ describe('API TESTS', () => {
   it('deletes a post', () => {
     postAPI.createPost(postAttributes).then((response) => {
       const postId = response.body.id;
+      cy.log(`Створено пост з ID: ${postId}`);
 
       postAPI.deletePost(postId).then((response) => {
         expect(response.status).to.eq(200);
         expect(response.body.deleted).to.be.true;
+        cy.log(`Видалено пост з ID: ${postId}`);
 
         postAPI.getPost(postId).then((response) => {
-          expect(response.status).to.eq(200);
-          expect(response.body.status).to.eq('trash');
+          expect(response.status).to.eq(404);
+          cy.log(`Не знайдено пост з ID: ${postId}`);
         });
       });
     });

@@ -1,9 +1,16 @@
 import { defineConfig } from "cypress";
+import dotenv from 'dotenv';
+dotenv.config();
 const allureWriter = require('@shelex/cypress-allure-plugin/writer');
 
 export default defineConfig({
   e2e: {
-    baseUrl: "https://theconnectedshop.com",
+    baseUrl: process.env.WP_BASE_URL,
+    env: {
+      username: process.env.WP_USER,
+      password: process.env.WP_PASSWORD,
+    },
+ 
     specPattern: "cypress/e2e/**/*.cy.ts",
     supportFile: 'cypress/support/e2e.ts',
 
