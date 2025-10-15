@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - main
+      - signUp
   pull_request:
     branches:
       - main
+      - signUp
  
 jobs:
   cypress-run:
