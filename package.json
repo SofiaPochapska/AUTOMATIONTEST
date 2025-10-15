@@ -1,9 +1,7 @@
 {
   "devDependencies": {
     "@faker-js/faker": "^9.9.0",
-    "@shelex/cypress-allure-plugin": "^2.41.2",
     "@types/node": "^24.5.0",
-    "allure-commandline": "^2.34.1",
     "cypress": "^15.2.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
