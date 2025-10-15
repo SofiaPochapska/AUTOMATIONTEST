@@ -6,6 +6,7 @@ const allureWriter = require('@shelex/cypress-allure-plugin/writer');
 export default defineConfig({
   e2e: {
     baseUrl: process.env.WP_BASE_URL,
+    screenshotOnRunFailure: true,
     env: {
       username: process.env.WP_USER,
       password: process.env.WP_PASSWORD,
